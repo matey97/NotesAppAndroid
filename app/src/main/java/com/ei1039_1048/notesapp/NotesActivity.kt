@@ -92,7 +92,8 @@ fun NotesApp(
                 NoteItemsList(
                     modifier = Modifier.padding(it),
                     notes = uiState.notes,
-                    onEditNoteTap = { note -> editNote = note }
+                    onEditNoteTap = { note -> editNote = note },
+                    onDeleteNoteTap = { note -> notesViewModel.deleteNote(note.id) }
                 )
             }
 

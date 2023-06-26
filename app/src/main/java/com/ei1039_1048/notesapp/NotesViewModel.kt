@@ -70,6 +70,14 @@ class NotesViewModel(
         }
     }
 
+    fun deleteNote(id: String) = viewModelScope.launch {
+        try {
+            notesController.deleteNote(id)
+        } catch (ex: NoteNotFoundException) {
+            // Podríamos mostrar también un snackbar
+        }
+    }
+
     fun hideSnackbar() =viewModelScope.launch {
         _snackBarMessage.value = null
     }
