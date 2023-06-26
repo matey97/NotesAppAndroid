@@ -17,4 +17,8 @@ class NoteRepositoryImp(
     override suspend fun insert(note: Note) {
         localStorage.insert(note.toLocal())
     }
+
+    override suspend fun update(id: String, title: String, description: String) {
+        throw NotImplementedError("TODO")
+    }
 }

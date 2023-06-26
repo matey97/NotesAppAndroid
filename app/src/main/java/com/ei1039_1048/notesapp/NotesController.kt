@@ -19,4 +19,8 @@ class NotesController(
         val note = Note(title = title, description = description)
         notesRepository.insert(note)
     }
+
+    suspend fun updateNote(id: String, title: String, description: String) {
+        throw NotImplementedError("TODO")
+    }
 }
