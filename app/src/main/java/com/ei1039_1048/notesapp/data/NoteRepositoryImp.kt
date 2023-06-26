@@ -19,6 +19,6 @@ class NoteRepositoryImp(
     }
 
     override suspend fun update(id: String, title: String, description: String) {
-        throw NotImplementedError("TODO")
+        localStorage.update(id, title, description)
     }
 }

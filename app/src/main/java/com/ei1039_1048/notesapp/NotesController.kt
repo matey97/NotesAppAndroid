@@ -3,7 +3,9 @@ package com.ei1039_1048.notesapp
 import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.data.NoteRepository
 import com.ei1039_1048.notesapp.exceptions.EmptyTitleException
+import com.ei1039_1048.notesapp.exceptions.NoteNotFoundException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class NotesController(
     private val notesRepository: NoteRepository
@@ -21,6 +23,16 @@ class NotesController(
     }
 
     suspend fun updateNote(id: String, title: String, description: String) {
-        throw NotImplementedError("TODO")
+        if (title.isEmpty()) {
+            throw EmptyTitleException()
+        }
+
+        if (!idExists(id)) {
+            throw NoteNotFoundException(id)
+        }
+
+        notesRepository.update(id, title, description)
     }
+
+    private suspend fun idExists(id: String): Boolean = getNotesStream().first().any { it.id == id }
 }
