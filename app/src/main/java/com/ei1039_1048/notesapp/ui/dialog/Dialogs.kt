@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 
 /*
@@ -99,11 +100,45 @@ fun CreateNoteDialog(
     )
 }
 
+@Composable
+fun UpdateNoteDialog(
+    note: Note,
+    onDialogClosed: () -> Unit,
+    onNoteUpdated: (String, String, String) -> Unit
+) {
+    var noteTitle by rememberSaveable { mutableStateOf(note.title) }
+    var noteDescription by rememberSaveable { mutableStateOf(note.description) }
+
+    BaseDialog(
+        dialogTitle = "Editar nota",
+        dialogDismissText = "Cancelar",
+        dialogCompleteText = "Actualizar",
+        noteTitle = noteTitle,
+        noteDescription = noteDescription,
+        onNoteTitleChanged = { noteTitle = it },
+        onNoteDescriptionChanged = { noteDescription = it },
+        onDialogCompleted = { onNoteUpdated(note.id, noteTitle, noteDescription) },
+        onDialogClosed = onDialogClosed
+    )
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun CreateNoteDialogPreview() {
     NotesAppTheme {
         CreateNoteDialog(onDialogClosed = {}, onNoteCreated = { _, _ -> })
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun UpdateNoteDialogPreview() {
+    NotesAppTheme {
+        UpdateNoteDialog(
+            note = Note("0", "Título Preview", "Descripción preview"),
+            onDialogClosed = {},
+            onNoteUpdated = { _, _, _ -> }
+        )
     }
 }
