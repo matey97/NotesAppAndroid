@@ -1,8 +1,11 @@
 package com.ei1039_1048.notesapp
 
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ei1039_1048.notesapp.data.NoteRepository
 import com.ei1039_1048.notesapp.data.NoteRepositoryImp
+import com.ei1039_1048.notesapp.data.local.NotesAppDatabase
 import com.ei1039_1048.notesapp.exceptions.EmptyTitleException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -21,6 +24,7 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class NotesControllerAcceptanceTests {
 
+    private lateinit var database: NotesAppDatabase
     private lateinit var noteRepository: NoteRepository
     private lateinit var notesController: NotesController
 
@@ -30,7 +34,13 @@ class NotesControllerAcceptanceTests {
 
     @Before
     fun setup() {
-        noteRepository = NoteRepositoryImp()
+        // Usamos una DB distinta a la real. En este caso, se usa una DB en memoria.
+        database = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            NotesAppDatabase::class.java
+        ).allowMainThreadQueries().build()
+
+        noteRepository = NoteRepositoryImp(database.noteDAO())
         notesController = NotesController(noteRepository)
     }
 
