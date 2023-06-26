@@ -23,6 +23,6 @@ class NoteRepositoryImp(
     }
 
     override suspend fun delete(id: String) {
-        throw NotImplementedError("TODO")
+        localStorage.delete(id)
     }
 }

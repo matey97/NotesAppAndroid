@@ -35,7 +35,11 @@ class NotesController(
     }
 
     suspend fun deleteNote(id: String) {
-        throw NotImplementedError("TODO")
+        if (!idExists(id)) {
+            throw NoteNotFoundException(id)
+        }
+
+        notesRepository.delete(id)
     }
 
     private suspend fun idExists(id: String): Boolean = getNotesStream().first().any { it.id == id }
