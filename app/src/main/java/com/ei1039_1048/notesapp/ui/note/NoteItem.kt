@@ -3,13 +3,18 @@ package com.ei1039_1048.notesapp.ui.note
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +37,7 @@ import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 fun NoteItemCard(
     modifier: Modifier = Modifier,
     note: Note,
+    onEditTap: (Note) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -78,6 +84,22 @@ fun NoteItemCard(
                 style = MaterialTheme.typography.bodyLarge,
                 fontStyle = if (note.description.isEmpty()) FontStyle.Italic else FontStyle.Normal
             )
+
+            if (isExpanded) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    IconButton(
+                        onClick = { onEditTap(note) },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Edit note button"
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -89,6 +111,7 @@ fun NoteCardPreview() {
         NoteItemCard(
             modifier = Modifier.padding(8.dp),
             note = Note("0", "Title", "Description"),
+            onEditTap = {}
         )
     }
 }
