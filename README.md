@@ -38,18 +38,18 @@ El contenido que nos interesa esta en `app/src/`, donde tenemos el código de la
 
 Contiene los siguientes directorios:
 
-- [`data`](app/src/main/java/com/ei1039_1048/data): definición del modelo de datos y del repositorio. A destacar:
+- [`data`](app/src/main/java/com/ei1039_1048/notesapp/data): definición del modelo de datos y del repositorio. A destacar:
     - Existen **dos** modelos de datos, `Note` y `LocalNote`. `Note` se corresponde con el modelo de la aplicación mientras que `LocalNote` representa el modelo de la DB.
     - `NoteRepository`: interfaz que define los métodos que debe cumplir un repositorio. Permitiría intercambiar distintos repositorios (p.ej., local, remoto).
-- [`exceptions`](app/src/main/java/com/ei1039_1048/exceptions): definición de excepciones.
-- [`ui`](app/src/main/java/com/ei1039_1048/ui): definición de componentes de interfaz y de estilos (tema de la aplicación).
+- [`exceptions`](app/src/main/java/com/ei1039_1048/notesapp/exceptions): definición de excepciones.
+- [`ui`](app/src/main/java/com/ei1039_1048/notesapp/ui): definición de componentes de interfaz y de estilos (tema de la aplicación).
 
 Contiene tres componentes importantes:
 
-- [`NotesViewModel`](app/src/main/java/com/ei1039_1048/NotesViewModel.kt): contiene el estado de la vista y define las operaciones que pueden realizarse desde la misma.
+- [`NotesViewModel`](app/src/main/java/com/ei1039_1048/notesapp/NotesViewModel.kt): contiene el estado de la vista y define las operaciones que pueden realizarse desde la misma.
   Aunque la funcionalidad puede implementarse en el propio ViewModel, se ha extraído al controlador para mejorar la testabilidad.
-- [`NotesController`](app/src/main/java/com/ei1039_1048/NotesController.kt): implementa las operaciones de gestión de notas. Tiene como dependencia `NoteRepository`.
-- [`NotesActivity`](app/src/main/java/com/ei1039_1048/NotesActivity.kt): punto de entrada de la aplicación. Se instancia el repositorio, el controlador y se enlazan al view model.
+- [`NotesController`](app/src/main/java/com/ei1039_1048/notesapp/NotesController.kt): implementa las operaciones de gestión de notas. Tiene como dependencia `NoteRepository`.
+- [`NotesActivity`](app/src/main/java/com/ei1039_1048/notesapp/NotesActivity.kt): punto de entrada de la aplicación. Se instancia el repositorio, el controlador y se enlazan al view model.
 
 ### Las pruebas: `test` y `androidTest`
 
