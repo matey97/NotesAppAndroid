@@ -26,7 +26,8 @@ import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 fun NoteItemsList(
     modifier: Modifier = Modifier,
     notes: List<Note> = emptyList(),
-    onEditNoteTap: (Note) -> Unit
+    onEditNoteTap: (Note) -> Unit,
+    onDeleteNoteTap: (Note) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -38,7 +39,8 @@ fun NoteItemsList(
             NoteItemCard(
                 modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
                 note = it,
-                onEditTap = onEditNoteTap
+                onEditTap = onEditNoteTap,
+                onDeleteTap = onDeleteNoteTap
             )
         }
     }
@@ -84,7 +86,8 @@ fun NoteItemsListPreview() {
     NotesAppTheme {
         NoteItemsList(
             notes = listOf(Note("0", "Title", "Description"), Note("1", "Title 2", "Description")),
-            onEditNoteTap = {}
+            onEditNoteTap = {},
+            onDeleteNoteTap = {}
         )
     }
 }

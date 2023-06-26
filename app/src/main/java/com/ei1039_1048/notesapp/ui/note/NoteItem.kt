@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -37,7 +38,8 @@ import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 fun NoteItemCard(
     modifier: Modifier = Modifier,
     note: Note,
-    onEditTap: (Note) -> Unit
+    onEditTap: (Note) -> Unit,
+    onDeleteTap: (Note) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -98,6 +100,15 @@ fun NoteItemCard(
                             contentDescription = "Edit note button"
                         )
                     }
+
+                    IconButton(
+                        onClick = { onDeleteTap(note) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete note button"
+                        )
+                    }
                 }
             }
         }
@@ -111,7 +122,8 @@ fun NoteCardPreview() {
         NoteItemCard(
             modifier = Modifier.padding(8.dp),
             note = Note("0", "Title", "Description"),
-            onEditTap = {}
+            onEditTap = {},
+            onDeleteTap = {}
         )
     }
 }
