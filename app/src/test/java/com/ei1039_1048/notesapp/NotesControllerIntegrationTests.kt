@@ -3,6 +3,7 @@ package com.ei1039_1048.notesapp
 import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.data.NoteRepository
 import com.ei1039_1048.notesapp.exceptions.EmptyTitleException
+import com.ei1039_1048.notesapp.exceptions.NoteNotFoundException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
@@ -114,5 +115,48 @@ class NotesControllerIntegrationTests {
         assertEquals(description1, notes[0].description)
         assertEquals(title2, notes[1].title)
         assertEquals(description2, notes[1].description)
+    }
+
+    @Test
+    fun HU03_E01() = runBlocking {
+        // Given: hay varias notas almacenadas
+        whenever(noteRepositoryMock.getNotesStream()).thenReturn(flow {
+            emit(listOf(note1, note2))
+        })
+
+        // When: se intenta cambiar el contenido de una nota
+        val newTitle = "New note title"
+        notesController.updateNote(note2.id, newTitle, description2)
+
+        // Then: la nota se actualiza correctamente (se llama a mock.update con los argumentos correctos)
+        verify(noteRepositoryMock).update(id2, newTitle, description2)
+    }
+
+    @Test(expected = EmptyTitleException::class)
+    fun HU03_E02() = runBlocking {
+        // Given: hay varias notas almacenadas
+        whenever(noteRepositoryMock.getNotesStream()).thenReturn(flow {
+            emit(listOf(note1, note2))
+        })
+
+        // When: se intenta cambiar el contenido de una nota con un título inválido
+        val newTitle = ""
+        notesController.updateNote(id2, newTitle, description2)
+
+        // Then: se lanza la excepción EmptyTitleException
+    }
+
+    @Test(expected = NoteNotFoundException::class)
+    fun HU03_E03() = runBlocking {
+        // Given: hay varias notas almacenadas
+        whenever(noteRepositoryMock.getNotesStream()).thenReturn(flow {
+            emit(listOf(note1, note2))
+        })
+
+        // When: se intenta cambiar el contenido de una nota usando un id inválido
+        val newTitle = "Other title"
+        notesController.updateNote("", newTitle, description2)
+
+        // Then: se lanza la excepción NoteNotFoundException
     }
 }
