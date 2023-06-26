@@ -159,4 +159,31 @@ class NotesControllerIntegrationTests {
 
         // Then: se lanza la excepción NoteNotFoundException
     }
+
+    @Test
+    fun HU04_E01() = runBlocking {
+        // Given: hay varias notas almacenadas
+        whenever(noteRepositoryMock.getNotesStream()).thenReturn(flow {
+            emit(listOf(note1, note2))
+        })
+
+        // When: se intenta borrar una nota usando un id inválido
+        notesController.deleteNote(id1)
+
+        // Then: se elimina la nota de la base de datos (se llama a mock.delete con los argumentos correctos)
+        verify(noteRepositoryMock).delete(id1)
+    }
+
+    @Test(expected = NoteNotFoundException::class)
+    fun HU04_E02() = runBlocking {
+        // Given: hay varias notas almacenadas
+        whenever(noteRepositoryMock.getNotesStream()).thenReturn(flow {
+            emit(listOf(note1, note2))
+        })
+
+        // When: se intenta borrar una nota usando un id inválido
+        notesController.deleteNote("")
+
+        // Then: se lanza la excepción NoteNotFoundException
+    }
 }
