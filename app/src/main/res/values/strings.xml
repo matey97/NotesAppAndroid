@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">NotesApp</string>
+    <string name="app_name">Notes App</string>
+    <string name="update_dialog_title">Editar nota</string>
+    <string name="cancel_button_text">Cancelar</string>
+    <string name="update_button_text">Actualizar</string>
+    <string name="create_dialog_title">Crear nueva nota</string>
+    <string name="create_button_text">Crear nota</string>
+    <string name="title_box_label">Título</string>
+    <string name="description_box_label">Descripción</string>
+    <string name="null_description">(No description)</string>
+    <string name="empty_note_list_text">No tienes ninguna nota!</string>
 </resources>

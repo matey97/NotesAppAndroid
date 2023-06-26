@@ -16,9 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ei1039_1048.notesapp.R
 import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 
@@ -55,7 +57,7 @@ fun EmptyNoteItemsList(
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = "No tienes ninguna nota!",
+            text = stringResource(R.string.empty_note_list_text),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )

@@ -25,11 +25,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ei1039_1048.notesapp.R
 import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 
@@ -80,7 +82,7 @@ fun NoteItemCard(
             }
 
             Text(
-                text = note.description.ifEmpty { "(No description)" },
+                text = note.description.ifEmpty { stringResource(R.string.null_description) },
                 maxLines = if (isExpanded) Int.MAX_VALUE else 2,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.bodyLarge,

@@ -15,8 +15,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ei1039_1048.notesapp.R
 import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 
@@ -55,13 +57,13 @@ fun BaseDialog(
                 Spacer(modifier = Modifier.size(8.dp))
                 DialogInputBox(
                     value = noteTitle,
-                    label = "Título",
+                    label = stringResource(R.string.title_box_label),
                     onValueChanged = onNoteTitleChanged
                 )
                 Spacer(modifier = Modifier.size(4.dp))
                 DialogInputBox(
                     value = noteDescription,
-                    label = "Descripción",
+                    label = stringResource(R.string.description_box_label),
                     onValueChanged = onNoteDescriptionChanged
                 )
                 Spacer(modifier = Modifier.size(8.dp))
@@ -88,9 +90,9 @@ fun CreateNoteDialog(
     var noteDescription by rememberSaveable { mutableStateOf("") }
 
     BaseDialog(
-        dialogTitle = "Crear nueva nota",
-        dialogDismissText = "Cancelar",
-        dialogCompleteText = "Crear nota",
+        dialogTitle = stringResource(R.string.create_dialog_title),
+        dialogDismissText = stringResource(R.string.cancel_button_text),
+        dialogCompleteText = stringResource(R.string.create_button_text),
         noteTitle = noteTitle,
         noteDescription = noteDescription,
         onNoteTitleChanged = { noteTitle = it },
@@ -110,9 +112,9 @@ fun UpdateNoteDialog(
     var noteDescription by rememberSaveable { mutableStateOf(note.description) }
 
     BaseDialog(
-        dialogTitle = "Editar nota",
-        dialogDismissText = "Cancelar",
-        dialogCompleteText = "Actualizar",
+        dialogTitle = stringResource(R.string.update_dialog_title),
+        dialogDismissText = stringResource(R.string.cancel_button_text),
+        dialogCompleteText = stringResource(R.string.update_button_text),
         noteTitle = noteTitle,
         noteDescription = noteDescription,
         onNoteTitleChanged = { noteTitle = it },

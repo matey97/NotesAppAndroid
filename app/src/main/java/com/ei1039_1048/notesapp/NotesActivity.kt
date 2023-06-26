@@ -46,6 +46,8 @@ import com.ei1039_1048.notesapp.ui.note.LoadingIndicator
 import com.ei1039_1048.notesapp.ui.note.NoteItemsList
 import com.ei1039_1048.notesapp.ui.theme.NotesAppTheme
 
+const val APP_NAME = "notes-app-db"
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
         val db = Room.databaseBuilder(
             applicationContext,
             NotesAppDatabase::class.java,
-            "notes-app-db"
+            APP_NAME
         ).build()
         val noteDAO = db.noteDAO()
         val noteRepository = NoteRepositoryImp(noteDAO)
