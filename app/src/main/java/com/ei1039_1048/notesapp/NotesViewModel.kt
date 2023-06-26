@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.exceptions.EmptyTitleException
+import com.ei1039_1048.notesapp.exceptions.NoteNotFoundException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -55,6 +56,17 @@ class NotesViewModel(
             _snackBarMessage.value = "¡Nota creada con exito!"
         } catch (ex: EmptyTitleException) {
             _snackBarMessage.value = "¡La nota debe tener un título!"
+        }
+    }
+
+    fun updateNote(id: String, title: String, description: String) = viewModelScope.launch {
+        try {
+            notesController.updateNote(id, title, description)
+            _snackBarMessage.value = "¡Nota actualizada con exito!"
+        } catch (ex: EmptyTitleException) {
+            _snackBarMessage.value = "¡La nota debe tener un título!"
+        } catch (ex: NoteNotFoundException) {
+            // Podríamos mostrar también un snackbar
         }
     }
 

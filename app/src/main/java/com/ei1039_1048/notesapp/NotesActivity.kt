@@ -36,9 +36,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.room.Room
+import com.ei1039_1048.notesapp.data.Note
 import com.ei1039_1048.notesapp.data.NoteRepositoryImp
 import com.ei1039_1048.notesapp.data.local.NotesAppDatabase
 import com.ei1039_1048.notesapp.ui.dialog.CreateNoteDialog
+import com.ei1039_1048.notesapp.ui.dialog.UpdateNoteDialog
 import com.ei1039_1048.notesapp.ui.note.EmptyNoteItemsList
 import com.ei1039_1048.notesapp.ui.note.LoadingIndicator
 import com.ei1039_1048.notesapp.ui.note.NoteItemsList
@@ -73,6 +75,7 @@ fun NotesApp(
         val uiState by notesViewModel.uiState.collectAsStateWithLifecycle()
 
         var showCreateNoteDialog by rememberSaveable { mutableStateOf(false) }
+        var editNote by remember { mutableStateOf<Note?>(null) }
 
         val snackbarHostState = remember { SnackbarHostState() }
         Scaffold(
@@ -89,6 +92,7 @@ fun NotesApp(
                 NoteItemsList(
                     modifier = Modifier.padding(it),
                     notes = uiState.notes,
+                    onEditNoteTap = { note -> editNote = note }
                 )
             }
 
@@ -107,6 +111,14 @@ fun NotesApp(
                 CreateNoteDialog(
                     onDialogClosed = { showCreateNoteDialog = false },
                     onNoteCreated = { title, description -> notesViewModel.createNote(title, description)}
+                )
+            }
+
+            if (editNote != null) {
+                UpdateNoteDialog(
+                    note = editNote!!,
+                    onDialogClosed = { editNote = null },
+                    onNoteUpdated = { id, title, description -> notesViewModel.updateNote(id, title, description)}
                 )
             }
         }
