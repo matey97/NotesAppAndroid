@@ -34,5 +34,9 @@ class NotesController(
         notesRepository.update(id, title, description)
     }
 
+    suspend fun deleteNote(id: String) {
+        throw NotImplementedError("TODO")
+    }
+
     private suspend fun idExists(id: String): Boolean = getNotesStream().first().any { it.id == id }
 }

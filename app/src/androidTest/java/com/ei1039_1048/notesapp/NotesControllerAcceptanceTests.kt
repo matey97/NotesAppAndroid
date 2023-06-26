@@ -147,4 +147,36 @@ class NotesControllerAcceptanceTests {
 
         // Then: se lanza la excepción NoteNotFoundException
     }
+
+    @Test
+    fun HU04_E01() = runBlocking {
+        // Given: hay varias notas almacenadas
+        notesController.createNote(title1, description1)
+        notesController.createNote(title2, description2)
+
+        var notes = notesController.getNotesStream().first()
+        val noteId1 = notes[0].id
+
+        // When: se intenta borrar una nota usando un id inválido
+        notesController.deleteNote(noteId1)
+
+        // Then: se elimina la nota de la base de datos
+        notes = notesController.getNotesStream().first()
+        assertEquals(1, notes.size)
+        assertEquals(title2, notes[0].title)
+        assertEquals(description2, notes[0].description)
+
+    }
+
+    @Test(expected = NoteNotFoundException::class)
+    fun HU04_E02() = runBlocking {
+        // Given: hay varias notas almacenadas
+        notesController.createNote(title1, description1)
+        notesController.createNote(title2, description2)
+
+        // When: se intenta borrar una nota usando un id inválido
+        notesController.deleteNote("")
+
+        // Then: se lanza la excepción NoteNotFoundException
+    }
 }
