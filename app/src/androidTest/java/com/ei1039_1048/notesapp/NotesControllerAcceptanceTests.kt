@@ -10,6 +10,7 @@ import com.ei1039_1048.notesapp.exceptions.EmptyTitleException
 import com.ei1039_1048.notesapp.exceptions.NoteNotFoundException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -178,5 +179,12 @@ class NotesControllerAcceptanceTests {
         notesController.deleteNote("")
 
         // Then: se lanza la excepción NoteNotFoundException
+    }
+
+    @After
+    fun clean() {
+        // Limpiamos y cerramos la DB, aunque no sería necesario
+        database.clearAllTables()
+        database.close()
     }
 }

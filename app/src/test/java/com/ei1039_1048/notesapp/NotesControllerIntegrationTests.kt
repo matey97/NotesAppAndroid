@@ -7,6 +7,7 @@ import com.ei1039_1048.notesapp.exceptions.NoteNotFoundException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
+import org.mockito.kotlin.reset
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
@@ -185,5 +187,11 @@ class NotesControllerIntegrationTests {
         notesController.deleteNote("")
 
         // Then: se lanza la excepción NoteNotFoundException
+    }
+
+    @After
+    fun clean() {
+        // Reseteamos la configuración y estado del mock
+        reset(noteRepositoryMock)
     }
 }
