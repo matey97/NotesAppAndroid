@@ -31,6 +31,8 @@ class NotesControllerAcceptanceTests {
     private val emptyTitle = ""
     private val title1 = "Test title 1"
     private val description1 = "Test description 1"
+    private val title2 = "Test title 2"
+    private val description2 = "Test description 2"
 
     @Before
     fun setup() {
@@ -66,5 +68,33 @@ class NotesControllerAcceptanceTests {
         notesController.createNote(emptyTitle, description1)
 
         // Then: se lanza la excepción EmptyTitleException
+    }
+
+    @Test
+    fun HU02_E01() = runBlocking {
+        // Given: no hay ninguna nota
+
+        // When: se consultan las notas
+        val notes = notesController.getNotesStream().first()
+
+        // Then: se obtiene una lista vacía
+        assertEquals(0, notes.size)
+    }
+
+    @Test
+    fun HU02_E02() = runBlocking {
+        // Given: hay varias notas almacenadas
+        notesController.createNote(title1, description1)
+        notesController.createNote(title2, description2)
+
+        // When: se consultan las notas
+        val notes = notesController.getNotesStream().first()
+
+        // Then: se obtiene una lista con las notas almacenadas
+        assertEquals(2, notes.size)
+        assertEquals(title1, notes[0].title)
+        assertEquals(description1, notes[0].description)
+        assertEquals(title2, notes[1].title)
+        assertEquals(description2, notes[1].description)
     }
 }
