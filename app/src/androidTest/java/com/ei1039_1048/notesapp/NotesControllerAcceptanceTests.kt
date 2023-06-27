@@ -9,6 +9,7 @@ import com.ei1039_1048.notesapp.data.local.NotesAppDatabase
 import com.ei1039_1048.notesapp.exceptions.EmptyTitleException
 import com.ei1039_1048.notesapp.exceptions.NoteNotFoundException
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 
@@ -106,7 +107,8 @@ class NotesControllerAcceptanceTests {
         notesController.createNote(title1, description1)
         notesController.createNote(title2, description2)
 
-        var notes = notesController.getNotesStream().first()
+        val notesListFlow = notesController.getNotesStream()
+        var notes = notesListFlow.take(1).first()
         val noteId2 = notes[1].id
 
         // When: se intenta cambiar el contenido de una nota
@@ -114,7 +116,7 @@ class NotesControllerAcceptanceTests {
         notesController.updateNote(noteId2, newTitle, description2)
 
         // Then: la nota se actualiza correctamente
-        notes = notesController.getNotesStream().first()
+        notes = notesListFlow.take(1).first()
         assertEquals(2, notes.size)
         assertEquals(newTitle, notes[1].title)
         assertEquals(description2, notes[1].description)
@@ -155,14 +157,15 @@ class NotesControllerAcceptanceTests {
         notesController.createNote(title1, description1)
         notesController.createNote(title2, description2)
 
-        var notes = notesController.getNotesStream().first()
+        val notesListFlow = notesController.getNotesStream()
+        var notes = notesListFlow.take(1).first()
         val noteId1 = notes[0].id
 
         // When: se intenta borrar una nota usando un id inválido
         notesController.deleteNote(noteId1)
 
         // Then: se elimina la nota de la base de datos
-        notes = notesController.getNotesStream().first()
+        notes = notesListFlow.take(1).first()
         assertEquals(1, notes.size)
         assertEquals(title2, notes[0].title)
         assertEquals(description2, notes[0].description)
