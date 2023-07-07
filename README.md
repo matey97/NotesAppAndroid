@@ -7,7 +7,7 @@ Este es un proyecto de ejemplo para las asignaturas Diseño de Software (EI1039)
 Software (EI1048) del Grado en Ingeniería Informática de la Universitat Jaume I de Castellón, España.
 
 > **Note**: para obtener la especificación de las historias de usuario, así como otros proyectos de
-> ejemplo, visitar el siguiente [repositorio]().
+> ejemplo, visitar el siguiente [repositorio](https://github.com/matey97/NotesAppVersions).
 
 ## Tecnologías empleadas
 
