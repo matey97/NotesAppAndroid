@@ -6,7 +6,8 @@ historias de usuario, pruebas de aceptación y de integración.
 Este es un proyecto de ejemplo para las asignaturas Diseño de Software (EI1039) y Paradigmas de
 Software (EI1048) del Grado en Ingeniería Informática de la Universitat Jaume I de Castellón, España.
 
-> **Note**: para obtener la especificación de las historias de usuario, así como otros proyectos de
+> [!NOTE] 
+> Para obtener la especificación de las historias de usuario, así como otros proyectos de
 > ejemplo, visitar el siguiente [repositorio](https://github.com/matey97/NotesAppVersions).
 
 ## Tecnologías empleadas
@@ -22,13 +23,15 @@ La aplicación en este repositorio es una aplicación Android nativa desarrollad
 
 - Descargar la última versión de Android Studio a través de su [web](https://developer.android.com/studio) o
   de la [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/).
-> **Warning**: Android Studio incluye el JDK17, necesario para trabajar con las últimas versiones de
+> [!WARNING]
+> Android Studio incluye el JDK17, necesario para trabajar con las últimas versiones de
 > Gradle. Puede que tengáis problemas para compilar la aplicación si ya teníais otro JDK instalado.
 > Para solucionarlo: `Settings > Build, Execution, Deployment > Build Tools > Gradle > Gradle JDK` y
 > seleccionar `Embedded JDK` o cualquier JDK >= 17.
 - Dispositivo móvil Android físico o emulado (que el ordenador virtualización).
 
-> **Warning**: si surge cualquier problema, no dudéis en poneros en contacto.
+> [!TIP]
+> Si surge cualquier problema, no dudéis en poneros en contacto.
 
 ## Estructura del repositorio
 
